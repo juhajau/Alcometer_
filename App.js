@@ -9,8 +9,8 @@ const App = () => {
   const [weight, setWeight] = useState('');
   const [timeSinceDrinking, setTimeSinceDrinking] = useState('');
   const [bacResult, setBACResult] = useState('');
-  const [isLightTheme, setIsLightTheme] = useState(true); // Theme toggle state
-  const [radioval, setRadioval] = useState('male'); // Radio button value
+  const [isLightTheme, setIsLightTheme] = useState(true); 
+  const [radioval, setRadioval] = useState('male'); 
   const [bacResultColor, setBACResultColor] = useState('green');
 
   const calculateBAC = () => {
@@ -31,13 +31,13 @@ const App = () => {
       result = gramsLeft / (parseFloat(weight) * 0.6);
     }
 
-    // Ensure the result is not negative
+    // Result can be negative
     if (result < 0) {
       result = 0;
     }
 
-    // Determine the color based on the result
-    let textColor = 'green'; // Default to green
+    // Result color
+    let textColor = 'green'; 
 
     if (result >= 0.5 && result <= 1.0) {
       textColor = 'yellow';
@@ -45,16 +45,18 @@ const App = () => {
       textColor = 'red';
     }
 
-    // Display the calculated BAC with the appropriate style
+   //Calculate results and color
     setBACResult(result.toFixed(2));
-    setBACResultColor(textColor); // Create a state variable for color
+    setBACResultColor(textColor); 
   };
 
+  //Theme
   const toggleTheme = () => {
     setIsLightTheme((prevTheme) => !prevTheme);
   };
 
-  const themeStyles = isLightTheme ? lightStyles : darkStyles; // Apply theme styles
+  // theme styles
+  const themeStyles = isLightTheme ? lightStyles : darkStyles; 
 
   return (
     <ScrollView contentContainerStyle={[styles.container, themeStyles.container]}>
@@ -84,13 +86,13 @@ const App = () => {
           <NumericInput value={parseFloat(timeSinceDrinking)} onChange={setTimeSinceDrinking} />
         </View>
       </View>
-
+      
       <View style={styles.radioContainer}>
         <View style={styles.radioItem}>
           <RadioButton.Android
             value="male"
             status={radioval === 'male' ? 'checked' : 'unchecked'}
-            onPress={() => setRadioval('male')} // Set to 'male' when pressed
+            onPress={() => setRadioval('male')} //Male when press
             color="#007bff"
           />
           <Text style={styles.radioLabel}>Male</Text>
@@ -99,7 +101,7 @@ const App = () => {
           <RadioButton.Android
             value="female"
             status={radioval === 'female' ? 'checked' : 'unchecked'}
-            onPress={() => setRadioval('female')} // Set to 'female' when pressed
+            onPress={() => setRadioval('female')} //Female when press
             color="#007bff"
           />
           <Text style={styles.radioLabel}>Female</Text>
