@@ -7,7 +7,6 @@ import { Alert } from 'react-native';
 const App = () => {
   const [bottles, setBottles] = useState(0);
   const [weight, setWeight] = useState('');
-  const [gender, setGender] = useState('male');
   const [timeSinceDrinking, setTimeSinceDrinking] = useState('');
   const [bacResult, setBACResult] = useState('');
   const [isLightTheme, setIsLightTheme] = useState(true); // Theme toggle state
@@ -19,38 +18,37 @@ const App = () => {
       Alert.alert('Warning', 'Please enter your weight.');
       return;
     }
-  
+
     const litres = parseFloat(bottles) * 0.33;
     const grams = litres * 8 * 4.5;
     const burning = parseFloat(weight) / 10;
     const gramsLeft = grams - burning * parseFloat(timeSinceDrinking);
-  
+
     let result;
-    if (gender === 'male') {
+    if (radioval === 'male') {
       result = gramsLeft / (parseFloat(weight) * 0.7);
-    } else if (gender === 'female') {
+    } else if (radioval === 'female') {
       result = gramsLeft / (parseFloat(weight) * 0.6);
     }
-  
+
     // Ensure the result is not negative
     if (result < 0) {
       result = 0;
     }
-  
+
     // Determine the color based on the result
     let textColor = 'green'; // Default to green
-  
+
     if (result >= 0.5 && result <= 1.0) {
       textColor = 'yellow';
     } else if (result > 1.0) {
       textColor = 'red';
     }
-  
+
     // Display the calculated BAC with the appropriate style
     setBACResult(result.toFixed(2));
     setBACResultColor(textColor); // Create a state variable for color
   };
-  
 
   const toggleTheme = () => {
     setIsLightTheme((prevTheme) => !prevTheme);
@@ -92,7 +90,7 @@ const App = () => {
           <RadioButton.Android
             value="male"
             status={radioval === 'male' ? 'checked' : 'unchecked'}
-            onPress={() => setRadioval('male')}
+            onPress={() => setRadioval('male')} // Set to 'male' when pressed
             color="#007bff"
           />
           <Text style={styles.radioLabel}>Male</Text>
@@ -101,7 +99,7 @@ const App = () => {
           <RadioButton.Android
             value="female"
             status={radioval === 'female' ? 'checked' : 'unchecked'}
-            onPress={() => setRadioval('female')}
+            onPress={() => setRadioval('female')} // Set to 'female' when pressed
             color="#007bff"
           />
           <Text style={styles.radioLabel}>Female</Text>
@@ -155,21 +153,8 @@ const lightStyles = StyleSheet.create({
   },
   result: {
     marginTop: 20,
-    fontSize: 18,
+    fontSize: 30,
     color: 'green',
-  },
-  themeToggleButton: {
-    position: 'absolute',
-    top: 150,
-    right: 20,
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  themeToggleText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   inputContainer: {
     marginBottom: 15,
@@ -177,9 +162,8 @@ const lightStyles = StyleSheet.create({
   inputLabel: {
     marginBottom: 5,
   },
-  radioStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  radioColor: {
+    color: 'black',
   },
 });
 
@@ -222,21 +206,8 @@ const darkStyles = StyleSheet.create({
   },
   result: {
     marginTop: 20,
-    fontSize: 18,
+    fontSize: 30,
     color: 'green',
-  },
-  themeToggleButton: {
-    position: 'absolute',
-    top: 150,
-    right: 20,
-    padding: 10,
-    backgroundColor: 'lightblue',
-    borderRadius: 5,
-  },
-  themeToggleText: {
-    color: 'lightblue',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   inputContainer: {
     marginBottom: 15,
@@ -244,9 +215,8 @@ const darkStyles = StyleSheet.create({
   inputLabel: {
     marginBottom: 5,
   },
-  radioStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  radioColor: {
+    color: 'black',
   },
 });
 
@@ -275,12 +245,6 @@ const styles = StyleSheet.create({
     top: 150,
     left: 20,
   },
-  container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  
 });
 
 export default App;
