@@ -31,7 +31,7 @@ const App = () => {
       result = gramsLeft / (parseFloat(weight) * 0.6);
     }
 
-    // Result can be negative
+    // Result cant be negative
     if (result < 0) {
       result = 0;
     }
